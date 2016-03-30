@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+    redis:
+        build: "build/"
+
+        volumes:
+            - /data/redis:/data/redis:rw
+    
+        network_mode: "host"
+        
+        mem_limit: 2048m
+
+        ports:
+            - "6379:6379"
+
+        environment:
+            affinity: container!=*redis*"
+            SERVICE_NAME: redis
+        labels:
+            - "net.dlatv.mfwk.name=redis"
+
+    redis-trib:
+        build: "redis-trib/"
+
